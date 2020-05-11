@@ -15,9 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
-class Template extends utils.Adapter {
+class Sensebox extends utils.Adapter {
     constructor(options = {}) {
-        super(Object.assign(Object.assign({}, options), { name: "template" }));
+        super(Object.assign(Object.assign({}, options), { name: "sensebox" }));
         this.on("ready", this.onReady.bind(this));
         this.on("objectChange", this.onObjectChange.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
@@ -32,17 +32,17 @@ class Template extends utils.Adapter {
             // Initialize your adapter here
             // The adapters config (in the instance object everything under the attribute "native") is accessible via
             // this.config:
-            this.log.info("config option1: " + this.config.senseboxid);
+            this.log.info("Sensebox ID: " + this.config.senseboxid);
             /*
             For every state in the system there has to be also an object of type state
             Here a simple template for a boolean variable named "testVariable"
             Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
             */
-            yield this.setObjectAsync("testVariable", {
+            yield this.setObjectAsync("SenseboxID", {
                 type: "state",
                 common: {
                     name: "testVariable",
-                    type: "boolean",
+                    type: "string",
                     role: "indicator",
                     read: true,
                     write: true,
@@ -56,17 +56,17 @@ class Template extends utils.Adapter {
             you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
             */
             // the variable testVariable is set to true as command (ack=false)
-            yield this.setStateAsync("testVariable", true);
+            yield this.setStateAsync("SenseboxID", "abc");
             // same thing, but the value is flagged "ack"
             // ack should be always set to true if the value is received from or acknowledged from the target system
-            yield this.setStateAsync("testVariable", { val: true, ack: true });
+            //		await this.setStateAsync("testVariable", { val: true, ack: true });
             // same thing, but the state is deleted after 30s (getState will return null afterwards)
-            yield this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
+            //		await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
             // examples for the checkPassword/checkGroup functions
-            let result = yield this.checkPasswordAsync("admin", "iobroker");
-            this.log.info("check user admin pw iobroker: " + result);
-            result = yield this.checkGroupAsync("admin", "admin");
-            this.log.info("check group user admin group admin: " + result);
+            //		let result = await this.checkPasswordAsync("admin", "iobroker");
+            //		this.log.info("check user admin pw iobroker: " + result);
+            //		result = await this.checkGroupAsync("admin", "admin");
+            //		this.log.info("check group user admin group admin: " + result);
         });
     }
     /**
@@ -110,9 +110,9 @@ class Template extends utils.Adapter {
 }
 if (module.parent) {
     // Export the constructor in compact mode
-    module.exports = (options) => new Template(options);
+    module.exports = (options) => new Sensebox(options);
 }
 else {
     // otherwise start the instance directly
-    (() => new Template())();
+    (() => new Sensebox())();
 }

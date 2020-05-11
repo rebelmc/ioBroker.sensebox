@@ -1,16 +1,6 @@
-![Logo](admin/sensebox.png)
-http://www.curth.de
-## ioBroker.sensebox Adapter
+MIT License
 
-Connects to Sensebox data.
-
-##  Changelog
-0.5.2  Initial release<br>
-
-## License
-MIT License<br>
-
-Copyright (c) 2020 Peter Curth <peter@curth.de><br>
+Copyright (c) 2020 Author <author@mail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
